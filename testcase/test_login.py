@@ -7,7 +7,7 @@ class Test_Api_Login(object):
 
     @classmethod
     def setup_class(cls):
-        cls.head = {"ddversion": ddversion, "ddclient": ddclient}
+        cls.head = {}
 
     @classmethod
     def teardown_class(cls):
@@ -16,28 +16,35 @@ class Test_Api_Login(object):
 
     def test_password_login(self):
         """正确的密码可以正常登录"""
-        data = readExcel(filename, "login", 1)  ##从excel表格里读取接口的数据
-        req_data = encryption(filename, "login", 1)  ##获取需要传输的参数
-        res = apiRequests(data[3], data[4], req_data, self.head)  ##发送接口请求
-        assert data[6] in res.text
-        ddtoken = res.json()["data"]["ddtoken"]
-        writExcel(filename, 'token', line=1, row=0, data=ddtoken)  ##将token写入到excel文件中
+        data_1 = dateChangeDict(filename, "login", 1)  ##从excel表格里读取接口的数据
+        res_1 = apiRequests(data_1[3], data_1[4], data_1[5], self.head)  ##发送接口请求
+        data_2 = dateChangeDict(filename, "login", 2)  ##从excel表格里读取接口的数据
+        res_2 = apiRequests(data_2[3], data_2[4], data_2[5], self.head)  ##发送接口请求
+        print(res_2.json())
+        assert res_2.json()['msg']=='成功'
+        token = res_2.json()["data"]["token"]
+        writExcel(filename, 'token', line=1, row=0, data=token)
 
 
     def test_error_password_login(self):
-        """错误的密码无法登录"""
-        data=readExcel(filename, "login", 2)  ##从excel表格里读取接口的数据
-        req_data=encryption(filename, "login", 2)  ##获取需要传输的参数
-        res=apiRequests(data[3], data[4], req_data, self.head)  ##发送接口请求
-        assert data[6] in res.json().get('msg')
+        """错误的验证码无法登录"""
+        data_1 = dateChangeDict(filename, "login", 1)  ##从excel表格里读取接口的数据
+        res_1 = apiRequests(data_1[3], data_1[4], data_1[5], self.head)  ##发送接口请求
+        data_2 = dateChangeDict(filename, "login", 3)  ##从excel表格里读取接口的数据
+        res_2 = apiRequests(data_2[3], data_2[4], data_2[5], self.head)  ##发送接口请求
+        print(res_2.json())
+        assert res_2.json()['msg'] == '验证码错误'
 
 
     def test_not_inpot_password_login(self):
         """不输入密码无法登录"""
-        data=readExcel(filename, "login", 3)  ##从excel表格里读取接口的数据
-        req_data=encryption(filename, "login", 3)  ##获取需要传输的参数
-        res=apiRequests(data[3], data[4], req_data, self.head)  ##发送接口请求
-        assert data[6] in res.json().get('msg')
+        data_1 = dateChangeDict(filename, "login", 1)  ##从excel表格里读取接口的数据
+        res_1 = apiRequests(data_1[3], data_1[4], data_1[5], self.head)  ##发送接口请求
+        data_2 = dateChangeDict(filename, "login", 4)  ##从excel表格里读取接口的数据
+        res_2 = apiRequests(data_2[3], data_2[4], data_2[5], self.head)  ##发送接口请求
+        print(res_2.json())
+        assert res_2.json()['msg'] == '验证码错误'
+
 
 if __name__ == '__main__':
     pytest.main()
