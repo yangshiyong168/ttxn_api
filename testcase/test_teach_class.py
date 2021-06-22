@@ -1,8 +1,9 @@
 #coding=utf-8
 import pytest,os,json,allure,sys
+sys.path.append("C:\\automation")
 from ttxn_api.Public.framework import *
-# from ttxn_api.Config.Api_Data import *
-# sys.path.append("C:\\automation")
+from ttxn_api.Config.Api_Data import *
+
 
 class Test_Courses(object):
     """约课/上课模块接口"""

@@ -1,8 +1,9 @@
 #coding=utf-8
+import pytest,os,json,allure,sys
 
 import requests,xlrd,xlwt,time,hashlib
 from xlutils.copy import copy
-from ttxn_api.Config.Api_Data import *
+
 def apiRequests(type, url, data, head):
     """get和post请求一起处理函数"""
     if type =='get':

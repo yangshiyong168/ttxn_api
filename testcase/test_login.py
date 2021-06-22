@@ -1,7 +1,7 @@
 #coding=utf-8
 import  pytest,os,json,allure
 from ttxn_api.Public.framework import *
-
+from ttxn_api.Config.Api_Data import *
 class Test_Api_Login(object):
     """登录模块接口"""
 
