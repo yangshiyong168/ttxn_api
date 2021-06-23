@@ -64,13 +64,6 @@ class Test_Courses(object):
         print(res.json())
         assert res.json().get('msg') == data[6]
 
-    def test_get_teach_class_07(self):
-        """获取教学课接口"""
-        data = dateChangeDict(filename, "teach_class", 7)  ##从excel表格里读取接口的数据
-        data[5]['token'] = self.token_value[0]
-        res = apiRequests(data[3], data[4], data[5], self.head)  ##发送接口请求
-        print(res.json())
-        assert res.json().get('code') == int(data[6])
 
 
 

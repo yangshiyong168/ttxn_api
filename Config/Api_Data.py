@@ -1,10 +1,6 @@
 #coding=utf-8
 import pytest,os,json,allure,sys
-sys.path.append("C:\\automation")
 
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
 ##请求头
 ddversion="2.5.22" ##版本号
 ddclient="4" ##0=>'未知',2=>'IOS平板',3=>'IOS手机',4=>'安卓手机',5=>'H5公众号',6=>'小程序',7=>'官网',8=>'android pad'
